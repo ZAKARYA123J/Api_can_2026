@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import 'dotenv/config'
 const sequelize =async()=>{
-     const db= new Sequelize(process.env.db,process.env.user, process.env.password, {
+     const db= new Sequelize(process.env.DB,process.env.USER, process.env.PASSWORD, {
   host: "localhost",
   dialect: "postgres", // because you're using pg + pg-hstore
 }); 
