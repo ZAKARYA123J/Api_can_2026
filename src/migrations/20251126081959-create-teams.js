@@ -3,37 +3,48 @@
 /** @type {import('sequelize-cli').Migration} */
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("teams", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      username: {
+
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
+
+      country: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      role: {
-        type: Sequelize.ENUM("admin", "user"),
-        allowNull: false,
-        defaultValue: "user",
+
+      flag_url: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
+
+      coach: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+
+      group: {
+        type: Sequelize.STRING, // A, B, C...
+        allowNull: true,
+      },
+
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
+
+      
+
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -42,7 +53,7 @@ export default {
     });
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+  async down(queryInterface) {
+    await queryInterface.dropTable("teams");
   },
 };

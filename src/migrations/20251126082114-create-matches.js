@@ -3,32 +3,51 @@
 /** @type {import('sequelize-cli').Migration} */
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("matches", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      username: {
-        type: Sequelize.STRING,
+
+      home_team_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        references: {
+          model: "teams",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      email: {
-        type: Sequelize.STRING,
+
+      away_team_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        references: {
+          model: "teams",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
-      password: {
-        type: Sequelize.STRING,
+
+      date: {
+        type: Sequelize.DATE,
         allowNull: false,
       },
-      role: {
-        type: Sequelize.ENUM("admin", "user"),
-        allowNull: false,
-        defaultValue: "user",
+
+      score_home: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
       },
+
+      score_away: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -43,6 +62,6 @@ export default {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("matches");
   },
 };
