@@ -33,16 +33,22 @@ export default {
       },
 
       group: {
-        type: Sequelize.STRING, // A, B, C...
+        type: Sequelize.STRING, 
         allowNull: true,
       },
-
+      userId:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{model:'users',key:'id'},
+           onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-
+    
       
 
       updated_at: {

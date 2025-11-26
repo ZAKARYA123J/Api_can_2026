@@ -17,14 +17,13 @@ export default (sequelize) => {
             });
 
             //match can create by admin user
-            Match.belongsTo(models.User, {
-                as: 'created_by',
-                foreignKey: 'created_by_user_id'
-            });
+            // Match.belongsTo(models.User, {
+            //     as: 'created_by',
+            //     foreignKey: 'created_by_user_id'
+            // });
         }
     }
     // Initialize Match model
-
       Match.init(
     {
       id: {
@@ -77,4 +76,5 @@ export default (sequelize) => {
       updatedAt: 'updated_at',
     }
   );
+  return Match
 }
