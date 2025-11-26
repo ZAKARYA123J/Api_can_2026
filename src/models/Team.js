@@ -14,12 +14,12 @@ export default (sequelize) => {
             foreignKey: 'team_id'
         });
 
-        //team belongs to many users
+        //team belongs to one user (admin)
         Team.belongsTo(models.User, {
-            through: 'team_users',
+            
             as: 'admin',
-            foreignKey: 'team_id',
-            otherKey: 'user_id'
+            foreignKey: 'user_id',
+            
         });
 
         //team has many matches (as home team)

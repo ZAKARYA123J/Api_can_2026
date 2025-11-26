@@ -11,6 +11,19 @@ export default {
         type: Sequelize.INTEGER,
       },
 
+      // Foreign key to users table (admin)
+
+        user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -33,7 +46,7 @@ export default {
       },
 
       group: {
-        type: Sequelize.STRING, // A, B, C...
+        type: Sequelize.STRING,
         allowNull: true,
       },
 
@@ -42,9 +55,6 @@ export default {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-
-      
-
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -53,7 +63,7 @@ export default {
     });
   },
 
-  async down(queryInterface) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable("teams");
   },
 };
