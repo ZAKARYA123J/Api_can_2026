@@ -46,15 +46,31 @@ export default {
       },
 
       group: {
+<<<<<<< HEAD
         type: Sequelize.STRING,
+=======
+        type: Sequelize.STRING, 
+>>>>>>> ba8e92fb4d6fd1cb1de8a61765f225c93160dc14
         allowNull: true,
       },
-
+      userId:{
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{model:'users',key:'id'},
+           onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
+<<<<<<< HEAD
+=======
+    
+      
+
+>>>>>>> ba8e92fb4d6fd1cb1de8a61765f225c93160dc14
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
