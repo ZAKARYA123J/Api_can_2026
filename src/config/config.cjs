@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
-dotenv.config();
+// config/config.cjs
+require('dotenv').config();
 
-export default {
+module.exports = {
   development: {
     username: process.env.USER || 'postgres',
     password: process.env.PASSWORD || 'password',
@@ -10,15 +10,7 @@ export default {
     dialect: 'postgres',
     port: process.env.DB_PORT || 5432,
     logging: console.log,
-    // PostgreSQL specific options
-    dialectOptions: {
-      // If using SSL, add these:
-      // ssl: {
-      //   require: true,
-      //   rejectUnauthorized: false
-      // }
-    },
-    // Connection pool settings
+    dialectOptions: {},
     pool: {
       max: 5,
       min: 0,
@@ -48,14 +40,12 @@ export default {
         rejectUnauthorized: false
       }
     },
-    // Connection pool settings for production
     pool: {
       max: 20,
       min: 5,
       acquire: 60000,
       idle: 20000
     },
-    // Additional production settings
     logging: false
   }
 };
