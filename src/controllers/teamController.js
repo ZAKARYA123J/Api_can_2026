@@ -1,19 +1,14 @@
-// import Team from "../models/Team.js";
-// import Player from "../models/Player.js";
+
 import db from "../models/index.js";
 const { Team, Player } = db;
-
-// list, get, create, update, remove
-
 
 // List all teams with players
 export const list = async (req, res) => {
   try {
     const teams = await Team.findAll({ include: [{ model: Player, as: "players" }] });
     res.json(teams);
-  } 
-  catch (err) {
-    console.error("Error in list teams:", err); // هادي غادي تبين الخطأ ف الـ console
+  } catch (err) {
+    console.error("Error in list teams:", err);
     res.status(500).json({ message: "Internal Server Error", error: err.message });
   }
 };
@@ -33,12 +28,21 @@ export const get = async (req, res) => {
 // Create new team
 export const create = async (req, res) => {
   try {
-    const { name, country } = req.body;
-    const team = await Team.create({ name, country });
+    const { name, country, flag_url, coach, group } = req.body;
+
+    // Validation check
+    if (!name || !country) {
+      return res.status(400).json({ message: "Name and country are required" });
+    }
+
+    const team = await Team.create({ name, country, flag_url, coach, group });
     res.status(201).json(team);
   } catch (err) {
     console.error("Error in create team:", err);
-    res.status(500).json({ message: "Internal Server Error", error: err.message });
+    res.status(500).json({
+      message: "Internal Server Error",
+      error: err.errors ? err.errors.map(e => e.message) : err.message
+    });
   }
 };
 
@@ -48,12 +52,21 @@ export const update = async (req, res) => {
     const team = await Team.findByPk(req.params.id);
     if (!team) return res.status(404).json({ message: "Team not found" });
 
-    const { name, country } = req.body;
-    await team.update({ name, country });
+    const { name, country, flag_url, coach, group } = req.body;
+
+    // Validation check
+    if (!name || !country) {
+      return res.status(400).json({ message: "Name and country are required" });
+    }
+
+    await team.update({ name, country, flag_url, coach, group });
     res.json(team);
   } catch (err) {
     console.error("Error in update team:", err);
-    res.status(500).json({ message: "Internal Server Error", error: err.message });
+    res.status(500).json({
+      message: "Internal Server Error",
+      error: err.errors ? err.errors.map(e => e.message) : err.message
+    });
   }
 };
 
