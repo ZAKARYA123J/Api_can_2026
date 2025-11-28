@@ -30,7 +30,6 @@ const files = fs
 for (const file of files) {
   const module = await import(path.join(__dirname, file));
 
-  // ✅ THIS IS THE FIX
   const model = module.default(sequelize);
 
   if (!model || !model.name) {

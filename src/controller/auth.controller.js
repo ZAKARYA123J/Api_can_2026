@@ -51,7 +51,7 @@ res.status(200).json({token:token})
 }
 export const me=async(req,res)=>{
    try {
-  let user = await User.findOne({where:{id : req?.user?.id},attributes:{exclude:["password"]}});
+  let user = await User.findOne({where:{id : req.user.id},attributes:{exclude:["password"]}});
     if(user === null){
       res.status(404).json({'msg':"User not found"});
     }

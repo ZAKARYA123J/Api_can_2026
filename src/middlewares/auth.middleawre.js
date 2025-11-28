@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken"
-const secretKey=process.env.JWT_SECRET
+
 const Authenticate=async(req,res,next)=>{
   const authHeader=req.headers['authorization'];
   const token=authHeader && authHeader.split(' ')[1];
