@@ -8,15 +8,15 @@ import {
   deletePlayer
 } from "../controllers/playerController.js";
 
-import authenticateAdmin from "../middleware/authenticateAdmin.js";
+import  Authenticate  from "../middlewares/auth.middleawre.js"
 
 const router = express.Router();
 
-router.post("/", authenticateAdmin, createPlayer);
+router.post("/", Authenticate, createPlayer);
 router.get("/", getAllPlayers);
 router.get("/:id", getPlayerById);
 router.get("/team/:teamId", getPlayersByTeam);
-router.put("/:id", authenticateAdmin, updatePlayer);
-router.delete("/:id", authenticateAdmin, deletePlayer);
+router.put("/:id", Authenticate, updatePlayer);
+router.delete("/:id", Authenticate, deletePlayer);
 
 export default router;

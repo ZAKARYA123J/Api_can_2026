@@ -6,17 +6,16 @@ import {
   getMatchById,
   updateMatch,
   deleteMatch
-} from "../controller/matchController.js";
+} from "../controllers/matchcontroller.js";
 
-import authenticateAdmin from "../controllers/";
-
+import  Authenticate  from "../middlewares/auth.middleawre.js"
 const router = express.Router();
 
-router.post("/", authenticateAdmin, createMatch);
+router.post("/", Authenticate, createMatch);
 router.get("/", getAllMatches);
 router.get("/upcoming", getUpcomingMatches);
 router.get("/:id", getMatchById);
-router.put("/:id", authenticateAdmin, updateMatch);
-router.delete("/:id", authenticateAdmin, deleteMatch);
+router.put("/:id", Authenticate, updateMatch);
+router.delete("/:id", Authenticate, deleteMatch);
 
 export default router;
