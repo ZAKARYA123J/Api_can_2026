@@ -58,6 +58,16 @@ export default {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
+
+      // Foreign key to users table (creator/admin)
+      created_by_user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Users",
+          key: "id",
+        },
+      },
     });
   },
 

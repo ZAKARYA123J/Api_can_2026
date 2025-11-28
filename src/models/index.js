@@ -1,13 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import Sequelize from 'sequelize';
-import { fileURLToPath } from 'url';
-import config from '../config/config.js';
+import fs from "fs";
+import path from "path";
+import Sequelize, { DataTypes } from "sequelize"; // Added DataTypes import for common use
+//  Added pathToFileURL to correctly convert paths to file URLs
+import { fileURLToPath, pathToFileURL } from "url";
+import config from "../config/config.cjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 const dbConfig = config[env];
 
 const sequelize = new Sequelize(
@@ -21,17 +22,22 @@ const db = {};
 
 const files = fs
   .readdirSync(__dirname)
-  .filter(file =>
-    file.indexOf('.') !== 0 &&
-    file !== 'index.js' &&
-    file.endsWith('.js')
+  .filter(
+    (file) =>
+      file.indexOf(".") !== 0 && file !== "index.js" && file.endsWith(".js")
   );
 
 for (const file of files) {
-  const module = await import(path.join(__dirname, file));
+  
+  const filePath = path.join(__dirname, file);
 
-  // ✅ THIS IS THE FIX
-  const model = module.default(sequelize);
+  
+  const fileUrl = pathToFileURL(filePath).href;
+
+ 
+  const module = await import(fileUrl); 
+
+  const model = module.default(sequelize, DataTypes);
 
   if (!model || !model.name) {
     throw new Error(`Model in ${file} is not exporting correctly`);
@@ -40,7 +46,7 @@ for (const file of files) {
   db[model.name] = model;
 }
 
-Object.keys(db).forEach(modelName => {
+Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }

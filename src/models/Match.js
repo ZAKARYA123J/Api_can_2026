@@ -17,64 +17,64 @@ export default (sequelize) => {
             });
 
             //match can create by admin user
-            // Match.belongsTo(models.User, {
-            //     as: 'created_by',
-            //     foreignKey: 'created_by_user_id'
-            // });
+             Match.belongsTo(models.User, {
+                as: 'created_by',
+                 foreignKey: 'created_by_user_id'
+             });
         }
     }
     // Initialize Match model
       Match.init(
-    {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
+        {
+          id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+          },
 
-      home_team_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+          home_team_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+          },
 
-      away_team_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+          away_team_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+          },
 
-      match_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-      },
+          match_date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+          },
 
-      stadium: {
-        type: DataTypes.STRING,
-      },
+          stadium: {
+            type: DataTypes.STRING,
+          },
 
-      score_home: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+          score_home: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+          },
 
-      score_away: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+          score_away: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
+          },
 
-      created_by: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-    },
-    {
-      sequelize,
-      modelName: 'Match',
-      tableName: 'matches',
-      timestamps: true,
-      underscored: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
-    }
-  );
+          created_by_user_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+          },
+        },
+        {
+          sequelize,
+          modelName: "Match",
+          tableName: "matches",
+          timestamps: true,
+          underscored: true,
+          createdAt: "created_at",
+          updatedAt: "updated_at",
+        }
+      );
   return Match
 }
