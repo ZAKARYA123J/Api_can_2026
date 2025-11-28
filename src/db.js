@@ -5,7 +5,7 @@ const sequelize = async () => {
   const db = new Sequelize(
     process.env.DB_DATABASE,
     process.env.DB_USER,
-    process.env.DB_PASSWORD,
+    'Admin123',
     {
       host: process.env.DB_HOST || "localhost",
       dialect: "postgres",
