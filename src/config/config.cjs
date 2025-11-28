@@ -9,15 +9,7 @@ module.exports = {
     dialect: 'postgres',
     port: process.env.DB_PORT || 5432,
     logging: console.log,
-    // PostgreSQL specific options
-    dialectOptions: {
-      // If using SSL, add these:
-      // ssl: {
-      //   require: true,
-      //   rejectUnauthorized: false
-      // }
-    },
-    // Connection pool settings
+    dialectOptions: {},
     pool: {
       max: 5,
       min: 0,
@@ -47,14 +39,12 @@ module.exports = {
         rejectUnauthorized: false
       }
     },
-    // Connection pool settings for production
     pool: {
       max: 20,
       min: 5,
       acquire: 60000,
       idle: 20000
     },
-    // Additional production settings
     logging: false
   }
 };

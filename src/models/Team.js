@@ -1,8 +1,4 @@
 import { Model,DataTypes } from "sequelize";  
-
-
-
-
 export default (sequelize) => {
 
    
@@ -16,10 +12,10 @@ export default (sequelize) => {
 
         //team belongs to one user (admin)
         Team.belongsTo(models.User, {
-            
-            as: 'admin',
-            foreignKey: 'user_id',
-            
+            through: 'team_users',
+            as:'admin',
+            foreignKey: 'team_id',
+            otherKey: 'user_id'
         });
 
         //team has many matches (as home team)
@@ -33,10 +29,6 @@ export default (sequelize) => {
             as: 'away_matches',
             foreignKey: 'away_team_id'
         });
-
-
-
-
     }
 
     
